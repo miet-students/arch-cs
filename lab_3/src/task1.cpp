@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <iostream>
 
-void wzAsm(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
+void wzAsm(uint64_t x, uint64_t y, uint64_t z, uint64_t w)
 {
   asm(
       "addl $79, %%eax\n"
@@ -15,9 +15,9 @@ void wzAsm(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
   std::cout << "z: " << z << " w: " << w << "\n\n";
 }
 
-void wzAsmWithPointers(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
+void wzAsmWithPointers(uint64_t x, uint64_t y, uint64_t z, uint64_t w)
 {
-  uint32_t *p = &x, *q = &y;
+  uint64_t *p = &x, *q = &y;
   asm(
       "movl (%[P]), %%edx\n" //edx = *eax и по какой-то причине просто с (%%eax) оно не работало
       "movl %%edx, %%eax\n"  //eax = edx
@@ -34,7 +34,13 @@ void wzAsmWithPointers(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
   std::cout << "z: " << z << " w: " << w << "\n\n";
 }
 
-void wz(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
+void wzAsmWithoutReferences(uint64_t x, uint64_t y, uint64_t z, uint64_t w)
+{
+  std::cout << "ASM without references:" << std::endl;
+  std::cout << "z: " << z << " w: " << w << "\n\n";
+}
+
+void wz(uint64_t x, uint64_t y, uint64_t z, uint64_t w)
 {
   z = (x + 79) / y;
   w = (x + 79) % y;
@@ -45,11 +51,10 @@ void wz(uint32_t x, uint32_t y, uint32_t z, uint32_t w)
 
 int main(int argc, char **argv)
 {
-  uint32_t x = 10, y = 5, z, w;
+  uint64_t x = 10, y = 5, z, w;
 
   wzAsm(x, y, z, w);
   wzAsmWithPointers(x, y, z, w);
   wz(x, y, z, w);
-
   return 0;
 }

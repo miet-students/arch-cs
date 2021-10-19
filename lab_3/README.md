@@ -22,3 +22,5 @@
 
 - https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#OutputOperands
 - https://gcc.gnu.org/onlinedocs/gcc/Simple-Constraints.html#Simple-Constraints
+- https://stackoverflow.com/questions/58476722/gcc-inline-asm-input-and-output-parameters-for-arrays
+- https://stackoverflow.com/questions/56432259/how-can-i-indicate-that-the-memory-pointed-to-by-an-inline-asm-argument-may-be
