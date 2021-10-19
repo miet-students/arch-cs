@@ -1,6 +1,0 @@
-https://gcc.gnu.org/onlinedocs/gcc/Extended-Asm.html#OutputOperands
-https://gcc.gnu.org/onlinedocs/gcc/Simple-Constraints.html#Simple-Constraints
-
-
-"cc"
-The "cc" clobber indicates that the assembler code modifies the flags register. On some machines, GCC represents the condition codes as a specific hardware register; "cc" serves to name this register. On other machines, condition code handling is different, and specifying "cc" has no effect. But it is valid no matter what the target.
