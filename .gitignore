@@ -1,0 +1,5 @@
+.vscode
+.idea
+**/bin/*
+!**/bin/.gitkeep
+archcs-theory-labs.pdf
