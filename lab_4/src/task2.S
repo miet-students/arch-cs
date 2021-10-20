@@ -6,7 +6,7 @@ task2:
   ret
 
 .data
-  msg: .string "Calling from ASM: %d\n"
+  msg: .string "Printing from ASM: %d\n"
 .text
 
 .globl main
