@@ -1,9 +1,8 @@
 .globl task2
 task2:
-  imul $5, %eax
-  imul $2, %edx
-  addl %edx, %eax
-  addl $657, %eax
+  imul $4, %eax
+  add %edx, %eax
+  add $234, %eax
   ret
 
 .data
