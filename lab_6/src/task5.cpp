@@ -42,7 +42,7 @@ void initArray(uint32_t *arr, uint32_t N, uint32_t x0)
       "jmp loop_begin\n"
       "loop_end:\n"
       : [I] "=&r"(i), [TMP] "=r"(tmp)
-      : [LEN] "r"(N), [ARR] "r"(arr), [X0] "r"(2 * x0), [Three] "r"(3)
+      : [LEN] "c"(N), [ARR] "r"(arr), [X0] "r"(2 * x0), [Three] "r"(3)
       : "cc", "memory", "%eax");
 }
 
