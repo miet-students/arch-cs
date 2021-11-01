@@ -5,7 +5,7 @@ void printSequence(int N, int x0)
 {
   int xi = x0;
   std::cout << xi << " ";
-  for (int i = 1; i <= N; i++)
+  for (int i = 1; i < N; i++)
   {
     if (xi % 2 == 0)
     {
