@@ -4,27 +4,30 @@
 double task3(double x)
 {
   double y;
-  const volatile double a = 3.3;
-  const volatile double b = 4.6;
-  const volatile double c = 6.9;
 
   asm(
-      "fldl %[A]\n"    // в стеке A
-      "fldl %[X]\n"    // в стеке X, A
-      "fcomi\n"        // в стеке X, A
-      "fstp %%st(0)\n" //стек пустой
+      ".data\n"
+      "a: .double 3.3\n"
+      "b: .double 4.6\n"
+      "c: .double 6.9\n"
+      ".text\n"
+      "fldl a(%%rip)\n" // в стеке A
+      "fldl %[X]\n"     // в стеке X, A
+      "fcomi\n"         // в стеке X, A
+      "fstp %%st(0)\n"  // стек пустой
       "jnbe more_than_3\n"
-      "fldl %[B]\n"  // в стеке B
-      "fstpl %[Y]\n" // стек пустой
+      "fldl b(%%rip)\n" // в стеке B
+      "fstpl %[Y]\n"    // стек пустой
       "jmp end\n"
       "more_than_3:\n"
-      "fldl %[X]\n"  // в стеке X
-      "faddl %[C]\n" // в стеке C+X
-      "fstpl %[Y]\n" // стек пустой
+      "fldl %[X]\n"      // в стеке X
+      "faddl c(%%rip)\n" // в стеке C+X
+      "fstpl %[Y]\n"     // стек пустой
       "end:\n"
       : [Y] "=m"(y)
-      : [X] "m"(x), [A] "m"(a), [B] "m"(b), [C] "m"(c)
+      : [X] "m"(x)
       : "cc");
+
   return y;
 }
 
