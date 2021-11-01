@@ -13,6 +13,7 @@ void calc(int32_t x)
   std::cout << "x: " << x << std::endl;
   std::cout << "C++ x < 7: " << (f(x) ? "True" : "False") << std::endl;
   std::cout << "ASM x < 7: " << (task1(x) ? "True" : "False") << std::endl;
+  std::cout << std::endl;
 }
 
 int main(int argc, char **argv)
