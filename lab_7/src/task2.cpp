@@ -2,35 +2,34 @@
 #include <cstdint>
 #include <cmath>
 
-void init_printArray(int **arr, uint32_t N, uint32_t M)
+void init_printArray(int *arr, uint32_t N, uint32_t M)
 {
   for (uint32_t i = 0; i < N; i++)
   {
     for (uint32_t j = 0; j < M; j++)
     {
-        arr[i][j] = (i+j)%4+1;
-        //std::cout <<i <<" "<<j<<std::endl;
-        std::cout << arr[i][j] << " ";
+        *(arr + i*M+j) = (i+j)%4+1;
+        std::cout <<*(arr + i*M+j) << " " ;
     }
     std::cout<<std::endl;
   }
   std::cout << std::endl;
 }
 
-int ProductArrayCPP(int **arr, uint32_t N, uint32_t M)
+int ProductArrayCPP(int *arr, uint32_t N, uint32_t M)
 {
     int product = 1;
     for (uint32_t i = 0; i < N; i++)
     {
       for (uint32_t j = 0; j < M; j++)
       {
-          product*= arr[i][j];
+          product*= *(arr + i*M+j);
       }
     }
     return product;
 }
 
-int ProductArrayASM(int **arr, uint32_t N, uint32_t M)
+int ProductArrayASM(int *arr, uint32_t N, uint32_t M)
 {
   uint32_t j, i, idx = 0;
 
@@ -50,7 +49,7 @@ int ProductArrayASM(int **arr, uint32_t N, uint32_t M)
       "jge loop_end_col\n"
 
       "xorl %%eax, %%eax\n"                 //TODO
-      "movl (%[ARR], %q[IDX], 4), %%eax\n"     //don't no how to get the value
+      "movl (%[ARR], %q[IDX]), %%eax\n"     //don't no how to get the value
       "imull %%eax, %[PR]\n"              //END TODO
 
       "addl $4, %[IDX]\n"
@@ -70,21 +69,15 @@ int ProductArrayASM(int **arr, uint32_t N, uint32_t M)
 
 int main()
 {
-    int **array;
-    uint32_t N=3, M=3;
+    int *array;
+    uint32_t N=4, M=7;
 
-    array = new int* [N];
-    for (uint32_t i = 0; i < N; i++) {
-        array[i] = new int [M];
-      }
+    array = new int [N*M];
 
     init_printArray(array, N, M);
     std::cout<<"Product from cpp= "<<ProductArrayCPP(array, N, M)<<std::endl;
     std::cout<<"Product from asm= "<<ProductArrayASM(array, N, M)<<std::endl;
 
-    for (uint32_t i = 0; i < N; i++) {
-        delete[] array[i];
-      }
     delete[] array;
   return 0;
 }
